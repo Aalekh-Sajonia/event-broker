@@ -1,34 +1,32 @@
 # Depoyment resides inside a bucket here called apps/v1
-# metadata name is the name of the service
-# selector means take all those labels and apply these to them
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: query-depl
+  name: client-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: query
+      app: client
   template:
     metadata:
       labels:
-        app: query
+        app: client
     spec:
       containers:
-        - name: query
-          image: aalekhs/query
+        - name: client
+          image: aalekhs/client
 ---
 # no need to specify type as it defaults to clusterIP
 apiVersion: v1
 kind: Service
 metadata:
-  name: query-srv
+  name: client-srv
 spec:
   selector:
-    app: query
+    app: client
   ports:
-    - name: query
+    - name: client
       protocol: TCP
-      port: 4002
-      targetPort: 4002
+      port: 3000
+      targetPort: 3000

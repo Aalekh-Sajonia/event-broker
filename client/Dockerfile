@@ -2,6 +2,8 @@
 
 FROM node:alpine
 
+ENV CI=true
+
 # specify working directory
 
 WORKDIR /app
